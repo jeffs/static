@@ -2,7 +2,8 @@
 #
 # This script works with sparse grids of boolean values.
 
-# Exit immediately on error.  For some reason, this makes HR choke on 'read n'.
+# Exit immediately on error.  Commented out for HackerRank submission, the HR
+# input is missing EOL, causing 'read n' to return non-zero.
 # set -euo pipefail
 
 # Allow only Bash builtins, not external commands.
@@ -88,16 +89,17 @@ function make-grid {
     done
 }
 
+# Prints 1 if the specified cell is 1, and _ otherwise.
 function show-cell {
     local -n cell_grid=$1
     local -i i=$2 j=$3
     echo -n ${cell_grid[$i,$j]:-_}
 }
 
+# Prints all grid cells left to right, top to bottom.
 function show-grid {
     local -n show_grid=$1
     local -i i=$ROWS j
-    # Print rows last to first, so the first row is shown on the bottom.
     while (( i-- )); do 
         for (( j = 0; j < COLS; ++j )); do
             show-cell show_grid $i $j
@@ -109,11 +111,12 @@ function show-grid {
 function main {
     local n
     read n
+    echo $?
     case $n in
         0|1|2|3|4|5)
             local -A grid
             make-grid grid $n
-            show-grid grid
+            #show-grid grid
             ;;
         *)
             >&2 echo "error: $n: expected 0 <= n <= 5"

@@ -79,13 +79,11 @@ function make-grid {
     while (( k-- )); do
         let 'len /= 2'
         local -i i=$len
-        while (( i-- )); do
+        for (( ; i--; m++ )); do
             add-stem-row new_grid $m
-            let 'm += 1'
         done
-        for (( i = $len; i--; )); do
+        for (( i = $len; i--; m++ )); do
             add-arms-row new_grid $m
-            let 'm += 1'
         done
     done
 }
